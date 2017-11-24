@@ -1,0 +1,74 @@
+﻿@model WebPhoneNumber.Models.FormModel
+
+@{
+    ViewData["Title"] = "Google Phone Number";
+}
+
+<h2>Phone Number</h2>
+
+<form asp-action="Verify" method="post" asp-anti-forgery="true">
+    <div class="form-horizontal" >
+        <h4>Phone</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Phone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label asp-for="RegionCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="RegionCode" class="form-control" />
+                <span asp-validation-for="RegionCode" class="text-danger"></span>
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label asp-for="RegionList" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="RegionCode" asp-items="@Model.RegionList"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-10">
+    @Model.Message
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-10">
+        <table>
+            <tr>
+                <th class="col-md-2">Region</th>
+                <th class="col-md-2">Code</th>
+                <th class="col-md-4">Phone</th>
+            </tr>
+            
+                @foreach (var info in Model.PhoneExemples)
+                {
+                    <tr>
+                        <td>@info.Item1</td>
+                        <td>@info.Item2</td>
+                        <td>@info.Item3</td>
+                    </tr>
+                }
+                    
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}
